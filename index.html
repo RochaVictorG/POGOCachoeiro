@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POGO Cachoeiro | HOME</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="./imagens/logo.png">
+        </div>
+    </header>
+
+
+
+
+    <div id="menu"></div>
+<script>
+    fetch('menu.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('menu').innerHTML = data;
+        })
+        .catch(error => console.error('Erro ao carregar o menu:', error));
+</script>
+
+
+
+    <main>
+        <section id="artigos">
+            <article style="text-align: justify;">
+                <h2>Seja bem vindo à Comunidade POGO Cachoeiro</h2>
+                Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </section>
+    </main>
+    
+        <footer id="footer"></footer>
+
+</body>
+</html>
+</script>

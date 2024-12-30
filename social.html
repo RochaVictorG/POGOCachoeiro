@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POGO Cachoeiro | SOCIAIS</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="./imagens/logo.png">
+        </div>
+    </header>
+
+
+
+
+    <div id="menu"></div>
+<script>
+    fetch('menu.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('menu').innerHTML = data;
+        })
+        .catch(error => console.error('Erro ao carregar o menu:', error));
+</script>
+
+
+
+    <div class="content">
+    <div class="text">
+    <h3> CAMPFIRE</h3>
+    Faça parte do nosso grupo do aplicativo Niantic Campfire e veja todos os nossos próximos encontros, e ganhe a possibilidade de fazer check-in nos eventos para ganhar bônus dentro do jogo! 
+    </div>
+    <a href="https://campfire.onelink.me/eBr8?af_dp=campfire://&af_force_deeplink=true&deep_link_sub1=cj1jbHVicyZjPTBhNmVmOTk3LWZlZDEtNDM4Ny1iNTlmLTgzNjIyODc0ZGQyOCZpPXRydWU= " target="_blank">
+    <img src="./imagens/NIANTIC CAMPFIRE.png" alt="Descrição da imagem" width="200" height="200" style="border-radius: 30px";></a>
+    </div> 
+
+
+
+    <div class="content">
+    <div class="text">
+    <h3>WHATSAPP</h3>
+    Faça parte do nosso grupo do aplicativo Niantic Campfire e veja todos os nossos próximos encontros, e ganhe a possibilidade de fazer check-in nos eventos para ganhar bônus dentro do jogo! 
+    </div>
+    <a href="https://chat.whatsapp.com/GuBF4GcbPmH1Nac6HpF4zC" target="_blank">
+    <img src="./imagens/WHATSAPP.png" alt="Descrição da imagem" width="200" height="200" style="border-radius: 15px";></a>
+    </div> 
+    
+
+
+    <div class="content">
+    <div class="text">
+    <h3>INSTAGRAM</h3>
+    Faça parte do nosso grupo do aplicativo Niantic Campfire e veja todos os nossos próximos encontros, e ganhe a possibilidade de fazer check-in nos eventos para ganhar bônus dentro do jogo! 
+    </div>
+    <a href="https://instagram.com/pogocachoeiro?utm_source=qr&igshid=MzNlNGNkZWQ4Mg==" target="_blank">
+    <img src="./imagens/INSTAGRAM.webp" alt="Descrição da imagem" width="200" height="200" style="border-radius: 15px";></a>
+    </div> 
+
+    
+
+    <footer id="footer"></footer>
+
+</body>
+</html>
+</script>

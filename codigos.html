@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <title>POGO Cachoeiro | LOCAIS</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="./imagens/logo.png">
+        </div>
+    </header>
+
+
+
+
+    <div id="menu"></div>
+<script>
+    fetch('menu.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('menu').innerHTML = data;
+        })
+        .catch(error => console.error('Erro ao carregar o menu:', error));
+</script>
+
+
+
+<style>
+    form { margin-bottom: 20px; }
+    label { display: block; margin: 10px 0 5px; }
+    input, select { padding: 8px; width: 100%; max-width: 400px; }
+    button { padding: 10px 20px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+    button:hover { background: #45a049; }
+    .trainer-list { margin-top: 20px; }
+    .trainer-card { border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; text-align: center; position: relative; }
+    .trainer-card img.qr-code { max-width: 100px; display: block; margin: 0 auto 10px; }
+    .delete-button { margin-top: 10px; padding: 5px 10px; background: #f44336; color: white; border: none; cursor: pointer; }
+    .delete-button:hover { background: #d32f2f; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+<body>
+  <h1>Cadastro de Treinadores</h1>
+  <form id="trainer-form">
+    <label for="name">Nome do Treinador (máx. 20 caracteres):</label>
+    <input type="text" id="name" maxlength="20" required>
+
+    <label for="code">Código do Treinador (exatamente 12 dígitos):</label>
+    <input type="text" id="code" pattern="\d{12}" title="Por favor, insira exatamente 12 dígitos." required>
+
+    <label for="team">Selecione o Time:</label>
+    <select id="team" required>
+      <option value="" disabled selected>Escolha uma opção</option>
+      <option value="Valor">Valor - Vermelho</option>
+      <option value="Mystic">Mystic - Azul</option>
+      <option value="Instinct">Instinct - Amarelo</option>
+    </select>
+
+    <button type="submit">Salvar Treinador</button>
+  </form>
+
+  <div class="trainer-list" id="trainer-list">
+    <h2>Lista de Treinadores</h2>
+  </div>
+
+  <script>
+    const trainerForm = document.getElementById('trainer-form');
+    const trainerList = document.getElementById('trainer-list');
+    const trainers = JSON.parse(localStorage.getItem('trainers')) || [];
+
+    trainerForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const code = document.getElementById('code').value;
+      const team = document.getElementById('team').value;
+
+      trainers.push({ name, code, team });
+      localStorage.setItem('trainers', JSON.stringify(trainers));
+      renderTrainers();
+
+      trainerForm.reset();
+    });
+
+    function generateQRCode(text, container) {
+      QRCode.toDataURL(text, { width: 100, margin: 2 }, (err, url) => {
+        if (err) return console.error(err);
+        const qrImage = document.createElement('img');
+        qrImage.src = url;
+        qrImage.className = 'qr-code';
+        container.prepend(qrImage);
+      });
+    }
+
+    function renderTrainers() {
+      trainerList.innerHTML = '<h2>Lista de Treinadores</h2>';
+      trainers.forEach((trainer, index) => {
+        const card = document.createElement('div');
+        card.className = 'trainer-card';
+
+        card.innerHTML = `
+          <p><strong>Nome:</strong> ${trainer.name}</p>
+          <p><strong>Código:</strong> ${trainer.code}</p>
+          <p><strong>Time:</strong> ${trainer.team}</p>
+          <button class="delete-button" data-index="${index}">Excluir</button>
+        `;
+
+        trainerList.appendChild(card);
+
+        generateQRCode(trainer.code, card);
+      });
+
+      const deleteButtons = document.querySelectorAll('.delete-button');
+      deleteButtons.forEach(button => {
+        button.addEventListener('click', deleteTrainer);
+      });
+    }
+
+    function deleteTrainer(event) {
+      const index = event.target.getAttribute('data-index');
+      const adminPassword = '12345';
+
+      const enteredPassword = prompt('Digite a senha de administrador para confirmar a exclusão:');
+
+      if (enteredPassword === adminPassword) {
+        trainers.splice(index, 1);
+        localStorage.setItem('trainers', JSON.stringify(trainers));
+        renderTrainers();
+        alert('Treinador excluído com sucesso!');
+      } else {
+        alert('Senha incorreta. A exclusão não foi realizada.');
+      }
+    }
+
+    renderTrainers();
+  </script>
+
+    <footer id="footer"></footer>
+
+   
+</body>
+</html>
+</script>
